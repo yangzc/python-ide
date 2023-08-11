@@ -5,12 +5,18 @@
 // import PythonComponent from './components/PythonComponent.vue';
 // import CodeEditer from './components/code-editer/index.vue';
 import PythonIde from './components/ide-python/index.vue';
+import Drawer from './components/drawer.vue';
 // import * as monaco from 'monaco-editor'
 import { ref } from 'vue';
 // const content = ref('print("aaa")')
 // const editorMounted = (editor: monaco.editor.IStandaloneCodeEditor) => {
 //   console.log('editor实例加载完成', editor)
 // }
+var display = ref(false)
+var drawerWidth = ref('400px')
+var closeDrawer = () => {
+  display.value = false;
+}
 </script>
 
 <template>
@@ -30,7 +36,15 @@ import { ref } from 'vue';
     Place static files into the <code>/public</code> folder
     <img style="width: 2.4em; margin-left: .4em;" src="/logo.svg" alt="Logo">
   </div> -->
-  <PythonIde></PythonIde>
+  <!-- <PythonIde></PythonIde> -->
+  <div class="box">
+        <button @click="display = true">打开抽屉</button>
+        <Drawer title="我是一个抽屉组件" v-model:display="display"
+                :inner="true" :width="drawerWidth" :mask="false">
+            1. Hello, world!
+            2. Do you like it?
+        </Drawer>
+    </div>
   
 </template>
 
