@@ -36,14 +36,14 @@ var closeDrawer = () => {
     Place static files into the <code>/public</code> folder
     <img style="width: 2.4em; margin-left: .4em;" src="/logo.svg" alt="Logo">
   </div> -->
-  <!-- <PythonIde></PythonIde> -->
-  <div class="box">
+  <PythonIde></PythonIde>
+  <!-- <div class="box">
     <button @click="display = true">打开抽屉</button>
     <Drawer title="我是一个抽屉组件" v-model:display="display" :width="drawerWidth" :mask="false">
       1. Hello, world!
       2. Do you like it?
     </Drawer>
-  </div>
+  </div> -->
 </template>
 
 <style>

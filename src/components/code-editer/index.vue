@@ -73,13 +73,27 @@ var getValue = () => {
     return editor.getValue();
 }
 
+function addBreakPoint(line: number) {
+    let model = editor.getModel()
+    if (!model) return
+    let value = {
+        range: new monaco.Range(line, 1, line, 1),
+        options: {
+            isWholeLine: true,
+            linesDecorationsClassName: 'breakpoints'
+        }
+    }
+    model.deltaDecorations([], [value])
+}
+
 defineExpose({
-    getValue
+    getValue,
+    addBreakPoint
 })
 </script>
 
 <template>
-    <div ref="codeEditBox" class="codeEditBox"/>
+    <div ref="codeEditBox" class="codeEditBox" />
 </template>
 <style lang="scss" scoped>
 .codeEditBox {
@@ -87,4 +101,5 @@ defineExpose({
     height: v-bind(height);
     text-align: left;
 }
+
 </style>

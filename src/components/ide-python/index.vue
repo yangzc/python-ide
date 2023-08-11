@@ -17,13 +17,14 @@ const onCodeChange = (value: string) => {
 }
 const runCode = () => {
     console.log('运行代码', terminal.value);
-    Python.execPython(codeEditor.value.getValue(), (data: string) => {
-        console.log(data);
-        terminal.value.setValue(data);
-    }, (err: string) => {
-        console.log(err);
-        terminal.value.setValue(err);
-    });
+    // Python.execPython(codeEditor.value.getValue(), (data: string) => {
+    //     console.log(data);
+    //     terminal.value.setValue(data);
+    // }, (err: string) => {
+    //     console.log(err);
+    //     terminal.value.setValue(err);
+    // });
+    codeEditor.value.addBreakPoint(1)
 }
 
 </script>
