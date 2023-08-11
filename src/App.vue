@@ -1,6 +1,16 @@
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
-import PythonIde from './components/PythonIde.vue';
+// import PythonIde from './components/PythonIde.vue';
+// import TerminalComponent from './components/TerminalComponent.vue';
+// import PythonComponent from './components/PythonComponent.vue';
+// import CodeEditer from './components/code-editer/index.vue';
+import PythonIde from './components/ide-python/index.vue';
+// import * as monaco from 'monaco-editor'
+import { ref } from 'vue';
+// const content = ref('print("aaa")')
+// const editorMounted = (editor: monaco.editor.IStandaloneCodeEditor) => {
+//   console.log('editor实例加载完成', editor)
+// }
 </script>
 
 <template>
@@ -21,6 +31,7 @@ import PythonIde from './components/PythonIde.vue';
     <img style="width: 2.4em; margin-left: .4em;" src="/logo.svg" alt="Logo">
   </div> -->
   <PythonIde></PythonIde>
+  
 </template>
 
 <style>

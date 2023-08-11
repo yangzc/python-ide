@@ -58,6 +58,7 @@ class Python {
         });
     }
 
+    // 安装python依赖库
     static installLib = (libname: string, fcn: (error: number | null, action: string, libname: string) => void) => {
         let command = '';
         console.log('[*] start installLibBy -------------------->>>>>');
@@ -84,6 +85,7 @@ class Python {
         });
     };
 
+    // 更新python依赖库
     static uninstallLib = (libname: string, fcn: (error: number | null, action: string, libname: string) => void) => {
         let command = `-m pip uninstall ${libname} -y`;
         exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
@@ -92,6 +94,7 @@ class Python {
         });
     };
 
+    // 搜索python依赖库
     static searchLibBy = (libname: string, fcn?: (error: number | null, libname: string) => void) => {
         let command = `-m pip show ${libname}`;
         exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
@@ -99,6 +102,7 @@ class Python {
         });
     };
 
+    // 
     static checkInstalledLibs = (fcn: (error: number | null, result: string) => void) => {
         let command = `-m pyutils --import-list --include .xiaoxiang --include cmpython`;
         exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
@@ -107,6 +111,7 @@ class Python {
         });
     };
 
+    // 更新pip
     static updatePip = () => {
         let command = `-m pip install --upgrade pip`;
         exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
@@ -114,6 +119,7 @@ class Python {
         });
     };
 
+    // 执行python脚本
     static execPython = (code: string, onSuccess: Function | undefined, onFail: Function | undefined = undefined, onClose: Function | undefined = undefined, onError: Function | undefined = undefined) => {
         spawn(Python.getPythonPath(), code, onSuccess, onFail, onClose, onError);
     }

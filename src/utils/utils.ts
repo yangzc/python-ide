@@ -15,6 +15,7 @@ export const getXiaoHeDir = () => {
     return path.join(os.homedir(), ".xiaohe");
 }
 
+// 获得内置脚本目录
 export function getScriptPath(): string {
     const script_path = path.join(getAppPath(), 'scripts');
     return script_path;
