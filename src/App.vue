@@ -5,7 +5,7 @@
 // import PythonComponent from './components/PythonComponent.vue';
 // import CodeEditer from './components/code-editer/index.vue';
 import PythonIde from './components/ide-python/index.vue';
-import Drawer from './components/drawer.vue';
+import Drawer from './components/Drawer.vue';
 // import * as monaco from 'monaco-editor'
 import { ref } from 'vue';
 // const content = ref('print("aaa")')
@@ -38,14 +38,12 @@ var closeDrawer = () => {
   </div> -->
   <!-- <PythonIde></PythonIde> -->
   <div class="box">
-        <button @click="display = true">打开抽屉</button>
-        <Drawer title="我是一个抽屉组件" v-model:display="display"
-                :inner="true" :width="drawerWidth" :mask="false">
-            1. Hello, world!
-            2. Do you like it?
-        </Drawer>
-    </div>
-  
+    <button @click="display = true">打开抽屉</button>
+    <Drawer title="我是一个抽屉组件" v-model:display="display" :width="drawerWidth" :mask="false">
+      1. Hello, world!
+      2. Do you like it?
+    </Drawer>
+  </div>
 </template>
 
 <style>

@@ -46,32 +46,23 @@ var props = defineProps({
         type: String,
         default: '400px'
     },
-    // 是否在父级元素中打开
-    inner: {
-        type: Boolean,
-        default: false
-    }
 });
 const maskClass = computed(() => {
     return {
         'mask-show': (props.mask && props.display),
-        'mask-hide': !(props.mask && props.display),
-        'inner': props.inner
+        'mask-hide': !(props.mask && props.display)
     }
 });
 const mainClass = computed(() => {
     return {
         'main-show': props.display,
-        'main-hide': !props.display,
-        'inner': props.inner
+        'main-hide': !props.display
     }
 });
 const mainStyle = computed(() => {
     return {
         width: props.width,
-        right: props.display ? '0' : `-${props.width}`,
-        top: props.inner ? '0' : '50%',
-        transform: props.inner ? 'none' : 'translateY(-50%)'
+        right: props.display ? '0' : `-${props.width}`
     }
 });
 
@@ -125,11 +116,6 @@ const closeByMask = () => {
 
     .main-hide {
         opacity: 0;
-    }
-
-    /* 某个元素内部显示 */
-    .inner {
-        position: absolute;
     }
 
     /* 其他样式 */
