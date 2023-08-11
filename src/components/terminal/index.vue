@@ -9,7 +9,7 @@ import { FitAddon } from 'xterm-addon-fit';
 import 'xterm/css/xterm.css';
 
 const terminalRef = ref(null);
-var term = null;
+var term: any = null;
 
 onMounted(() => {
     term = new Terminal({
@@ -22,7 +22,6 @@ onMounted(() => {
         theme: {
             background: '#1d1f21',
             foreground: '#c5c8c6',
-            selection: '#373b41',
             black: '#1d1f21',
             blue: '#81a2be',
             brightBlack: '#969896',
@@ -64,7 +63,7 @@ onMounted(() => {
     // });
 });
 
-var setValue = (value) => {
+var setValue = (value: string) => {
     console.log(value);
     term.write(value);
     term.write('c:/\x1B[1;3;31mpythons\x1B[0m $ ')
