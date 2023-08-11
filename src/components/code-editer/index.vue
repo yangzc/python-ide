@@ -67,6 +67,15 @@ onMounted(() => {
 onBeforeUnmount(() => {
     editor.dispose()
 })
+
+// 获得内容
+var getValue = () => {
+    return editor.getValue();
+}
+
+defineExpose({
+    getValue
+})
 </script>
 
 <template>

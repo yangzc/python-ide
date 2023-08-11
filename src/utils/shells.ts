@@ -1,5 +1,9 @@
 var child_proces = require("child_process");
 
+const formatData = (data: string) => {
+    return data.replace(/\n/g, '\r\n');
+}
+
 // 执行脚本命令
 export const spawn = (shell: string, code: string, onSuccess: Function | undefined, onFail: Function | undefined, onClose: Function | undefined, onError: Function | undefined) => {
     var terminal = child_proces.spawn(code, [], {
@@ -9,11 +13,11 @@ export const spawn = (shell: string, code: string, onSuccess: Function | undefin
     });
     terminal.stdout.on('data', (data: any) => {
         console.log(`stdout: ${data}`);
-        onSuccess && onSuccess(data.toString());
+        onSuccess && onSuccess(formatData(data.toString()));
     });
     terminal.stderr.on('data', (data: any) => {
         console.log(`stderr: ${data}`);
-        onFail && onFail(data.toString());
+        onFail && onFail(formatData(data.toString()));
     });
     terminal.on('close', (code: any) => {
         console.log(`子进程退出码：${code}`);
