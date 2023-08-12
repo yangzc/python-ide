@@ -55,10 +55,12 @@ export const editorProps = {
                     enabled: true
                 },
                 readOnly: false,
-                contextmenu: true,
+                contextmenu: false,
                 fontSize: 16,
                 scrollBeyondLastLine: false,
-                overviewRulerBorder: false
+                overviewRulerBorder: false,
+                tabSize: 4,
+                insertSpaces: false,
             }
         }
     }
