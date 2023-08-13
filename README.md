@@ -5,7 +5,7 @@ electron + monaco + xterm + python
 使用python内置的ast模块
 
 # 如何进行语法检查
-flake8 可以做语法检查，参考相关文档
+flake8/pyflakes可以做语法检查，参考相关文档
 
 # 如何做异常捕获
 ```
