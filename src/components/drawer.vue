@@ -48,18 +48,21 @@ var props = defineProps({
     },
 });
 const maskClass = computed(() => {
+    console.log("computed", "maskClass");
     return {
         'mask-show': (props.mask && props.display),
         'mask-hide': !(props.mask && props.display)
     }
 });
 const mainClass = computed(() => {
+    console.log("computed", "mainClass");
     return {
         'main-show': props.display,
         'main-hide': !props.display
     }
 });
 const mainStyle = computed(() => {
+    console.log("computed", "mainStyle");
     return {
         width: props.width,
         right: props.display ? '0' : `-${props.width}`
@@ -140,6 +143,8 @@ const closeByMask = () => {
     .drawer-body {
         font-size: 14px;
         padding: 15px;
+        height: 100%;
+        background-color:aqua;
     }
 }
 </style>

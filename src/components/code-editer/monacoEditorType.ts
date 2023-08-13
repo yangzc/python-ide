@@ -24,14 +24,14 @@ export const editorProps = {
         type: String as PropType<string>,
         default: null
     },
-    width: {
-        type: [String, Number] as PropType<string | number>,
-        default: '100%'
-    },
-    height: {
-        type: [String, Number] as PropType<string | number>,
-        default: '100%'
-    },
+    // width: {
+    //     type: [String, Number] as PropType<string | number>,
+    //     default: '100%'
+    // },
+    // height: {
+    //     type: [String, Number] as PropType<string | number>,
+    //     default: '100%'
+    // },
     language: {
         type: String as PropType<string>,
         default: 'python'
@@ -52,7 +52,8 @@ export const editorProps = {
                 renderLineHighlight: 'all',
                 selectOnLineNumbers: true,
                 minimap: {
-                    enabled: true
+                    enabled: false,
+                    autohide: true
                 },
                 readOnly: false,
                 contextmenu: false,
@@ -61,6 +62,8 @@ export const editorProps = {
                 overviewRulerBorder: false,
                 tabSize: 4,
                 insertSpaces: false,
+                lineDecorationsWidth: 16,
+                lineNumbersMinChars: 16
             }
         }
     }
