@@ -46,7 +46,7 @@ onMounted(() => {
         allowNonTsExtensions: true
     })
     monaco.editor.defineTheme('py-theme', {
-        base: 'vs', // 基于默认主题
+        base: 'vs-dark', // 基于默认主题
         inherit: true, // 继承默认主题的样式
         colors: {
             // "editorLineNumber.activeForeground": "#fff000", //选中行号颜色

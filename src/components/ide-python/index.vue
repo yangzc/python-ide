@@ -18,7 +18,16 @@ const onCodeChange = (value: string) => {
 }
 const runCode = () => {
     console.log('运行代码', terminal.value);
+    Python.execPython(codeEditor.value.getValue(), (data: string) => {
+        console.log(data);
+        terminal.value.setValue(data);
+    }, (err: string) => {
+        console.log(err);
+        terminal.value.setValue(err);
+    });
+}
 
+const checkCode = () => {
     Python.checkCode(codeEditor.value.getValue(), (result: string, lineNum: number, msg: string) => {
         console.log(`result: ${result}, lineNum: ${lineNum}, msg: ${msg}`);
         codeEditor.value.clearErrorPoints();
@@ -26,26 +35,25 @@ const runCode = () => {
             console.log("运行成功");
             codeEditor.value.setErrorPoint(lineNum);
         }
+        terminal.value.setValue(`检查结果: ${result}, lineNum: ${lineNum}, msg: ${msg}\r\n`);
     });
-
-    // Python.execPython(codeEditor.value.getValue(), (data: string) => {
-    //     console.log(data);
-    //     terminal.value.setValue(data);
-    // }, (err: string) => {
-    //     console.log(err);
-    //     terminal.value.setValue(err);
-    // });
 }
 
 </script>
 <template>
     <div class="ide-python">
-        <CodeEditer class="codeEditBox" @editor-mounted="editorMounted" @change="onCodeChange" :modelValue="codeValue" ref="codeEditor"/>
+        <CodeEditer class="codeEditBox" @editor-mounted="editorMounted" @change="onCodeChange" :modelValue="codeValue"
+            ref="codeEditor" />
         <div>结果：</div>
         <Terminal class="terminal" ref="terminal"></Terminal>
-        <button @click="runCode">
-            运行
-        </button>
+        <div style="display: flex; flex-direction: row; justify-content: center;">
+            <button @click="checkCode">
+                检查
+            </button>
+            <button @click="runCode" style="margin-left: 20px;">
+                运行
+            </button>
+        </div>
     </div>
 </template>
 <style scoped>
@@ -55,13 +63,14 @@ const runCode = () => {
     display: flex;
     flex-direction: column;
 }
+
 .terminal {
     height: 200px;
     overflow-y: auto;
 }
+
 .codeEditBox {
     width: 100%;
     height: 0;
     flex-grow: 1;
-}
-</style>
+}</style>
