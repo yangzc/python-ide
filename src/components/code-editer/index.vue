@@ -92,22 +92,28 @@ var getValue = () => {
     return editor.getValue();
 }
 
-function addBreakPoint(line: number) {
+var errorPoints: string[] = [];
+function setErrorPoint(line: number) {
     let model = editor.getModel()
     if (!model) return
     let value = {
         range: new monaco.Range(line, 1, line, 1),
         options: {
             isWholeLine: true,
-            linesDecorationsClassName: 'breakpoints'
+            linesDecorationsClassName: 'errorPoint'
         }
     }
-    model.deltaDecorations([], [value])
+    errorPoints = model.deltaDecorations([], [value])
+}
+
+function clearErrorPoints() {
+    editor.removeDecorations(errorPoints);
 }
 
 defineExpose({
     getValue,
-    addBreakPoint
+    setErrorPoint,
+    clearErrorPoints
 })
 </script>
 

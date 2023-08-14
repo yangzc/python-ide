@@ -19,7 +19,7 @@ export const spawn = (shell: string, code: string, onSuccess: Function | undefin
         console.log(`stderr: ${data}`);
         onFail && onFail(formatData(data.toString()));
     });
-    terminal.on('close', (code: any) => {
+    terminal.on('close', (code: number) => {
         console.log(`子进程退出码：${code}`);
         onClose && onClose(code)
     });
@@ -30,10 +30,15 @@ export const spawn = (shell: string, code: string, onSuccess: Function | undefin
 }
 
 // 执行脚本命令
-export const exec = (shell: string, command: string, callback: Function) => {
-    var process = child_proces.exec(`${shell} ${command}`, (error: number, stdout: any, stderr: any) => {
-        callback && callback(error, stdout, stderr);
-        process.kill();
+export const exec = (shell: string | undefined, command: string, callback: Function) => {
+    var options = {};
+    if(shell) {
+        options = Object.assign({}, {
+            shell: shell
+        });
     }
-    );
+    var process = child_proces.exec(command, options, (error: number, stdout: any, stderr: any) => {
+        callback && callback(error, stdout, stderr);
+        process && process.kill();
+    });
 }

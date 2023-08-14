@@ -89,12 +89,12 @@ code {
     background-color: #f9f9f9;
   }
 }
-.breakpoints {
+.errorPoint {
   background: red;
   background: radial-gradient(circle at 3px 3px, white, red);
   width: 10px !important;
   height: 10px !important;
   left: 0px !important;
-  top: 3px;
-  border-radius: 5px;
+  top: 7px;
+  border-radius: 50%;
 }

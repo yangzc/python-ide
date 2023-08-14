@@ -7,7 +7,7 @@ import * as path from "path";
 
 // 获得应用程序根目录
 const getAppPath = () => {
-    return "/Users/yangzc/devsoft/projects/web/electron-python-ide"
+    return "/Users/yangzc/devsoft/projects/web/python-ide"
 }
 
 // 获得用户目录
@@ -49,6 +49,12 @@ export function isWin64(): boolean {
 
 export function isDev(): boolean {
     return process.env.NODE_ENV === 'development';
+}
+
+// 读取文件
+export function readFileSync(path: string): string {
+    const fs = require('fs');
+    return fs.readFileSync(path, 'utf8');
 }
 
 

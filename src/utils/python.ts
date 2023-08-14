@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { getBinariesDirectoryPath, getScriptPath, getXiaoHeDir, isDev, isMac, isWin64, isWins } from './utils';
+import { getBinariesDirectoryPath, getScriptPath, getXiaoHeDir, isDev, isMac, isWin64, isWins, readFileSync } from './utils';
 import { exec, spawn } from './shells';
 
 const python_win64_path = path.join(getBinariesDirectoryPath(), 'python-win64/python.exe');
@@ -122,6 +122,31 @@ class Python {
     // 执行python脚本
     static execPython = (code: string, onSuccess: Function | undefined, onFail: Function | undefined = undefined, onClose: Function | undefined = undefined, onError: Function | undefined = undefined) => {
         spawn(Python.getPythonPath(), code, onSuccess, onFail, onClose, onError);
+    }
+
+    static checkCode = (code: string, fn: (result: string, lineNum: number, msg: string) => void) => {
+        var script = readFileSync(path.join(getScriptPath(), 'py_check.py'));
+        script = script.replace('##code##', code);
+        exec(Python.getPythonPath(), script, (error: number, stdout: string, stderr: string) => {
+            console.log(`[*] checkCode, error: ${error}, stdout: ${stdout}, stderr: ${stderr}`);
+            if(stdout) {
+                if(stdout.startsWith("syntaxError")) {
+                    var items = stdout.split(",");
+                    var lineNum = parseInt(items[3]);
+                    var msg = items[2];
+                    fn('syntaxError', lineNum, msg); // 语法错误
+                } else if(stdout.startsWith("flake")) {
+                    var items = stdout.split(":");
+                    var lineNum = parseInt(items[1]);
+                    var msg = items[3];
+                    fn('syntaxError', lineNum, msg); // 语法错误
+                } else {
+                    fn('error', 0, '未知错误'); // 语法错误
+                }
+            } else {
+                fn("success", 0, "检查完成");
+            }
+        });
     }
 }
 export default Python;

@@ -3,7 +3,8 @@ import PythonIde from './components/ide-python/index.vue';
 // import Drawer from './components/Drawer.vue';
 import MainDivisionPanel from './components/MainDivisionPanel.vue'
 import CodeEditer from './components/code-editer/index.vue';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+// import { parse, createVisitor } from 'python-ast';
 var display = ref(false)
 var drawerWidth = ref('400px')
 
@@ -40,10 +41,45 @@ const editorMounted = (editor: any) => {
 // 监听值的变化
 const onCodeChange = (value: string) => {
 }
+
+// const countMethods = (source: string) => {
+//   let ast = parse(source);
+ 
+//   return createVisitor({
+//     visitFuncdef: () => 1,
+//     defaultResult: () => 0,
+//     aggregateResult: (a, b) => a + b,
+//   }).visit(ast);
+// };
+
+var ss = {"a": "b"};
+var sss = {"c":"d"};
+var bb = {"d":"e"};
+
+var yy = Object.assign({}, ss, sss, bb);
+console.log(yy);
+
+onMounted(() => {
+  console.log(
+//   countMethods(`
+// class A:
+//     a: int
+ 
+//     def b(self):
+//         pass
+    
+//     def c(self):
+//         pass
+// class B:
+//     def z(self, i):
+//         pass
+//   `),
+);
+});
 </script>
 
 <template>
-  <!-- <PythonIde></PythonIde> -->
+  <PythonIde></PythonIde>
   <!-- <div class="box">
     <button @click="display = true">打开抽屉</button>
     <Drawer title="我是一个抽屉组件" v-model:display="display" :width="drawerWidth" :mask="false">
@@ -51,13 +87,13 @@ const onCodeChange = (value: string) => {
       2. Do you like it?
     </Drawer>
   </div> -->
-  <MainDivisionPanel>
+  <!-- <MainDivisionPanel>
     <template v-slot:left>Left</template>
     <template v-slot:right>Right</template>
     <template v-slot:center>
       <CodeEditer class="codeEditBox" @editor-mounted="editorMounted" @change="onCodeChange" :modelValue="codeValue" ref="codeEditor"/>
     </template>
-  </MainDivisionPanel>
+  </MainDivisionPanel> -->
 </template>
 
 <style scoped lang="scss">

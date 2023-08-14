@@ -14,9 +14,20 @@ const editorMounted = (editor: any) => {
 }
 // 监听值的变化
 const onCodeChange = (value: string) => {
+    codeEditor.value.clearErrorPoints();
 }
 const runCode = () => {
     console.log('运行代码', terminal.value);
+
+    Python.checkCode(codeEditor.value.getValue(), (result: string, lineNum: number, msg: string) => {
+        console.log(`result: ${result}, lineNum: ${lineNum}, msg: ${msg}`);
+        codeEditor.value.clearErrorPoints();
+        if (result !== "success") {
+            console.log("运行成功");
+            codeEditor.value.setErrorPoint(lineNum);
+        }
+    });
+
     // Python.execPython(codeEditor.value.getValue(), (data: string) => {
     //     console.log(data);
     //     terminal.value.setValue(data);
@@ -24,7 +35,6 @@ const runCode = () => {
     //     console.log(err);
     //     terminal.value.setValue(err);
     // });
-    codeEditor.value.addBreakPoint(1)
 }
 
 </script>
