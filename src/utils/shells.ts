@@ -7,7 +7,11 @@ const formatData = (data: string) => {
 class XShells {
 
     // 执行脚本命令
-    static spawn = (shell: string, code: string, onSuccess: Function | undefined, onFail: Function | undefined, onClose: Function | undefined, onError: Function | undefined) => {
+    static spawn = (shell: string, code: string
+        , onSuccess: Function | undefined
+        , onFail: Function | undefined
+        , onClose: Function | undefined = undefined
+        , onError: Function | undefined = undefined) => {
         var terminal = child_proces.spawn(code, [], {
             env: Object.assign({}, process.env, { PYTHONIOENCODING: 'UTF-8', PYTHONLEGACYWINDOWSIOENCODING: 'UTF-8' }),
             detached: process.platform === 'darwin',
@@ -44,6 +48,7 @@ class XShells {
             process && process.kill();
         });
     }
+
 }
 
 exports.default = XShells;

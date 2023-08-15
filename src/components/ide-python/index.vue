@@ -27,8 +27,8 @@ const runCode = () => {
     });
 }
 
-const checkCode = () => {
-    Python.checkCode(codeEditor.value.getValue(), (result: string, lineNum: number, msg: string) => {
+const checkSyntax = () => {
+    Python.checkSyntax(codeEditor.value.getValue(), (result: string, lineNum: number, msg: string) => {
         console.log(`result: ${result}, lineNum: ${lineNum}, msg: ${msg}`);
         codeEditor.value.clearErrorPoints();
         if (result !== "success") {
@@ -47,7 +47,7 @@ const checkCode = () => {
         <div>结果：</div>
         <Terminal class="terminal" ref="terminal"></Terminal>
         <div style="display: flex; flex-direction: row; justify-content: center;">
-            <button @click="checkCode">
+            <button @click="checkSyntax">
                 检查
             </button>
             <button @click="runCode" style="margin-left: 20px;">

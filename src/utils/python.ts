@@ -123,8 +123,8 @@ class Python {
         XShells.spawn(Python.getPythonPath(), code, onSuccess, onFail, onClose, onError);
     }
 
-    // 检查python代码
-    static checkCode = (code: string, fn: (result: string, lineNum: number, msg: string) => void) => {
+    // 检查python语法
+    static checkSyntax = (code: string, fn: (result: string, lineNum: number, msg: string) => void) => {
         var script = readFileSync(path.join(getScriptPath(), 'py_check.py'));
         script = script.replace('##code##', code);
         XShells.exec(`${Python.getPythonPath()} ${script}`, (error: number, stdout: string, stderr: string) => {
