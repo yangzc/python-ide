@@ -1,6 +1,5 @@
 import * as path from 'path';
 import { getBinariesDirectoryPath, getScriptPath, getXiaoHeDir, isDev, isMac, isWin64, isWins, readFileSync } from './utils';
-import { exec, spawn } from './shells';
 
 const python_win64_path = path.join(getBinariesDirectoryPath(), 'python-win64/python.exe');
 const python_win32_path = path.join(getBinariesDirectoryPath(), 'python-win32/python.exe');
@@ -47,8 +46,8 @@ class Python {
         const PYTHON_SCRIPT_PATH = path.join(getScriptPath(), 'py_install.py');
         const target = Python.getPySitePackagesDir() + "/xiaohe.pth";
 
-        const command = `${PYTHON_SCRIPT_PATH} ${python_buildin_libs} ${python_download_libs} ${target}`;
-        exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
+        const command = `${Python.getPythonPath()} ${PYTHON_SCRIPT_PATH} ${python_buildin_libs} ${python_download_libs} ${target}`;
+        XShells.exec(command, (error: number, stdout: any, stderr: any) => {
             console.log(stdout);
             if (error) {
                 console.log("初始化python环境失败");
@@ -60,7 +59,7 @@ class Python {
 
     // 安装python依赖库
     static installLib = (libname: string, fcn: (error: number | null, action: string, libname: string) => void) => {
-        let command = '';
+        let command = '${Python.getPythonPath()} ';
         console.log('[*] start installLibBy -------------------->>>>>');
         command += [
             `-m pip install`,
@@ -73,7 +72,7 @@ class Python {
         ].join(' ');
 
         console.log(`[*] installLibBy, command: ${command}`);
-        exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
+        XShells.exec(command, (error: number, stdout: any, stderr: any) => {
             console.log(`[*] installLibBy, e: ${error}, n: ${stdout}, r: ${stderr}`);
             if (error && stderr.includes('pip install --upgrade pip')) {
                 Python.updatePip();
@@ -87,8 +86,8 @@ class Python {
 
     // 更新python依赖库
     static uninstallLib = (libname: string, fcn: (error: number | null, action: string, libname: string) => void) => {
-        let command = `-m pip uninstall ${libname} -y`;
-        exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
+        let command = `${Python.getPythonPath()} -m pip uninstall ${libname} -y`;
+        XShells.exec(command, (error: number, stdout: any, stderr: any) => {
             console.log(`[*] updatePip, e: ${error}, n: ${stdout}, r: ${stderr}`);
             fcn(error, 'uninstall', libname)
         });
@@ -96,16 +95,16 @@ class Python {
 
     // 搜索python依赖库
     static searchLibBy = (libname: string, fcn?: (error: number | null, libname: string) => void) => {
-        let command = `-m pip show ${libname}`;
-        exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
+        let command = `${Python.getPythonPath()} -m pip show ${libname}`;
+        XShells.exec(command, (error: number, stdout: any, stderr: any) => {
             fcn && fcn(error, libname);
         });
     };
 
     // 
     static checkInstalledLibs = (fcn: (error: number | null, result: string) => void) => {
-        let command = `-m pyutils --import-list --include .xiaoxiang --include cmpython`;
-        exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
+        let command = `${Python.getPythonPath()} -m pyutils --import-list --include .xiaoxiang --include cmpython`;
+        XShells.exec(command, (error: number, stdout: any, stderr: any) => {
             console.log(`[*] updatePip, e: ${error}, n: ${stdout}, r: ${stderr}`);
             fcn(error, stdout)
         });
@@ -113,21 +112,22 @@ class Python {
 
     // 更新pip
     static updatePip = () => {
-        let command = `-m pip install --upgrade pip`;
-        exec(Python.getPythonPath(), command, (error: number, stdout: any, stderr: any) => {
+        let command = `${Python.getPythonPath()} -m pip install --upgrade pip`;
+        XShells.exec(command, (error: number, stdout: any, stderr: any) => {
             console.log(`[*] updatePip, e: ${error}, n: ${stdout}, r: ${stderr}`);
         });
     };
 
     // 执行python脚本
     static execPython = (code: string, onSuccess: Function | undefined, onFail: Function | undefined = undefined, onClose: Function | undefined = undefined, onError: Function | undefined = undefined) => {
-        spawn(Python.getPythonPath(), code, onSuccess, onFail, onClose, onError);
+        XShells.spawn(Python.getPythonPath(), code, onSuccess, onFail, onClose, onError);
     }
 
+    // 检查python代码
     static checkCode = (code: string, fn: (result: string, lineNum: number, msg: string) => void) => {
         var script = readFileSync(path.join(getScriptPath(), 'py_check.py'));
         script = script.replace('##code##', code);
-        exec(Python.getPythonPath(), script, (error: number, stdout: string, stderr: string) => {
+        XShells.exec(`${Python.getPythonPath()} ${script}`, (error: number, stdout: string, stderr: string) => {
             console.log(`[*] checkCode, error: ${error}, stdout: ${stdout}, stderr: ${stderr}`);
             if(stdout) {
                 if(stdout.startsWith("syntaxError")) {
