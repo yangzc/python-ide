@@ -6,7 +6,16 @@ import Python from "../../utils/python";
 
 const codeEditor = ref();
 const terminal = ref();
-const codeValue = ref<string>("print('hello world11')");
+const script = `
+# python环境初始化，升级依赖库等
+# python运行
+# python语法检查
+# python语法书解析，判断对错
+print('hello world11')
+for i in range(10):
+	print(i)
+`;
+const codeValue = ref<string>(script);
 
 // 页面加载完成后初始化
 const editorMounted = (editor: any) => {

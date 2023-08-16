@@ -4,6 +4,7 @@ import PythonIde from './components/ide-python/index.vue';
 import MainDivisionPanel from './components/MainDivisionPanel.vue'
 import CodeEditer from './components/code-editer/index.vue';
 import { computed, onMounted, ref, watch } from 'vue';
+// import XShells from './utils/shells';
 // import { parse, createVisitor } from 'python-ast';
 var display = ref(false)
 var drawerWidth = ref('400px')
@@ -75,6 +76,7 @@ onMounted(() => {
 //         pass
 //   `),
 );
+// XShells.exec("", () => {});
 });
 </script>
 
