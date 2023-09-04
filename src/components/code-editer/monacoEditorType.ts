@@ -63,7 +63,7 @@ export const editorProps = {
                 tabSize: 4,
                 insertSpaces: false,
                 lineDecorationsWidth: 16,
-                lineNumbersMinChars: 16
+                lineNumbersMinChars: 16,
             }
         }
     }
