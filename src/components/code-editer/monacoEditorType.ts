@@ -55,7 +55,7 @@ export const editorProps = {
                     enabled: false,
                     autohide: true
                 },
-                readOnly: false,
+                readOnly: true,
                 contextmenu: false,
                 fontSize: 16,
                 scrollBeyondLastLine: false,
